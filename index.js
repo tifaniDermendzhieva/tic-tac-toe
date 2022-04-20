@@ -1,6 +1,6 @@
 function tikTakToe(gameField) {
   if (gameField.length !== 9) {
-    return false;
+    throw new Error ('invalid game field')
   }
 
   let winningCombos = [

@@ -109,22 +109,22 @@ describe("tiktaktoe tests", () => {
     expect(tikTakToe(game)).to.be.false;
   });
 
-  it("should return false when the game field is empty", () => {
+  it("should throw error when the game field is empty", () => {
     let game = [];
-    expect(tikTakToe(game)).to.be.false;
+    expect(() => tikTakToe(game)).to.be.throw("invalid game field");
   });
 
-  it("should return false when the game field only contains empty fields", () => {
+  it("should not throw error when the game field only contains empty fields", () => {
     let game = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
     expect(tikTakToe(game)).to.be.false;
   });
 
-  it("should return false when the game field less than 9 elements", () => {
+  it("should throw error when the game field less than 9 elements", () => {
     let game = [" ", " ", " ", " ", " ", " "];
-    expect(tikTakToe(game)).to.be.false;
+    expect(() => tikTakToe(game)).to.be.throw("invalid game field");
   });
 
-  it("should return false when the game field more than 9 elements", () => {
+  it("should throw error when the game field more than 9 elements", () => {
     let game = [
       " ",
       " ",
@@ -143,6 +143,6 @@ describe("tiktaktoe tests", () => {
       " ",
       " ",
     ];
-    expect(tikTakToe(game)).to.be.false;
+    expect(() => tikTakToe(game)).to.be.throw("invalid game field");
   });
 });

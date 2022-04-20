@@ -104,9 +104,9 @@ describe("tiktaktoe tests", () => {
     });
   });
 
-  it("should return false when it is tie", () => {
+  it("should return tie when it is tie", () => {
     let game = ["O", "X", "X", "O", "O ", "X", "X", "X", "O"];
-    expect(tikTakToe(game)).to.be.false;
+    expect(tikTakToe(game)).to.equal("tie");
   });
 
   it("should throw error when the game field is empty", () => {
@@ -114,9 +114,14 @@ describe("tiktaktoe tests", () => {
     expect(() => tikTakToe(game)).to.be.throw("invalid game field");
   });
 
-  it("should not throw error when the game field only contains empty fields", () => {
+  it("should return pending when the game field only contains empty fields", () => {
     let game = [" ", " ", " ", " ", " ", " ", " ", " ", " "];
-    expect(tikTakToe(game)).to.be.false;
+    expect(tikTakToe(game)).to.equal("pending");
+  });
+
+  it("should return pending when the game field only contains empty fields", () => {
+    let game = [" ", " ", " ", "X", " ", "O", " ", "X", " "];
+    expect(tikTakToe(game)).to.equal("pending");
   });
 
   it("should throw error when the game field less than 9 elements", () => {

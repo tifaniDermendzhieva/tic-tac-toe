@@ -1,6 +1,6 @@
 function tikTakToe(gameField) {
   if (gameField.length !== 9) {
-    throw new Error ('invalid game field')
+    throw new Error("invalid game field");
   }
 
   let winningCombos = [
@@ -26,13 +26,15 @@ function tikTakToe(gameField) {
       secondElement === thirdElement &&
       thirdElement !== " "
     ) {
-
-    
       return firstElement;
     }
   }
 
-  return false;
+  if (!gameField.includes(" ")) {
+    return "tie";
+  }
+
+  return "pending";
 }
 
 module.exports = tikTakToe;

@@ -26,7 +26,9 @@ function tikTakToe(gameField) {
       secondElement === thirdElement &&
       thirdElement !== " "
     ) {
-      return true;
+
+    
+      return firstElement;
     }
   }
 

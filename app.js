@@ -1,5 +1,38 @@
 const rootElement = document.getElementById('root');
 
+let gameState = {
+    state: 'waiting',
+    gameField: [" - ", " ", " ", " ", "  ", " ", " ", " ", " - "],
+}
+
+function renderGameState(gameState) {
+
+    switch (gameState.state) {
+
+        case 'waiting': renderWaitingState(); break;
+        case 'playing': renderGameField(gameState.gameField); break;
+        case 'gameOver': renderGameOver(); break;
+
+    }
+
+}
+
+function renderWaitingState() {
+    const playBtn = document.createElement('button');
+    playBtn.textContent = 'PLAY';
+
+    const onPlay = (e) => {
+        gameState.state = 'playing';
+        renderGameState(gameState);
+        playBtn.removeEventListener('click', onPlay);
+    }
+
+    playBtn.addEventListener('click', onPlay);
+
+    rootElement.appendChild(playBtn);
+
+}
+
 function renderGameField(gameField) {
 
     let gameFieldCopy = gameField.slice();
@@ -26,11 +59,4 @@ function renderGameField(gameField) {
 
 }
 
-let input = ["X", "X", "X", "O", "O ", "X", "X", "X", "O"];
-
-renderGameField(input);
-
-
-
-
-
+renderGameState(gameState);

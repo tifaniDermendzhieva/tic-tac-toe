@@ -1,9 +1,54 @@
+
 const rootElement = document.getElementById('root');
+
+/////////
+const winningCombos = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+];
+
+const emptyField = " ";
+function tikTakToe(gameField) {
+    if (gameField.length !== 9) {
+        throw new Error("invalid game field");
+    }
+
+
+    for (let i = 0; i < winningCombos.length; i++) {
+        let currentCombo = winningCombos[i];
+
+        let firstElement = gameField[currentCombo[0]];
+        let secondElement = gameField[currentCombo[1]];
+        let thirdElement = gameField[currentCombo[2]];
+
+        if (
+            firstElement === secondElement &&
+            secondElement === thirdElement &&
+            thirdElement !== emptyField
+        ) {
+            return firstElement;
+        }
+    }
+
+    if (!gameField.includes(emptyField)) {
+        return "tie";
+    }
+
+    return "pending";
+}
+///////
 
 let gameState = {
     state: 'waiting',
-    gameField: [" - ", " ", " ", " ", "  ", " ", " ", " ", " - "],
+    gameField: [" ", " ", " ", " ", "  ", " ", " ", " ", " "],
     currentPlayer: 'X',
+    winnerMssg: ''
 }
 
 function renderGameState() {
@@ -30,7 +75,7 @@ function renderWaitingState() {
 
     playBtn.addEventListener('click', onPlay);
 
-    rootElement.appendChild(playBtn);
+    rootElement.replaceChildren(playBtn);
 
 }
 
@@ -67,7 +112,24 @@ function renderGameField() {
                         gameState.currentPlayer = 'X';
                     }
 
-                    renderGameField(gameState.gameField);
+                    switch (tikTakToe(gameState.gameField)) {
+
+                        case 'X':
+                            gameState.winnerMssg = 'X wins';
+                            gameState.state = 'gameOver';
+                            break;
+                        case 'O':
+                            gameState.winnerMssg = 'O wins';
+                            gameState.state = 'gameOver';
+                            break;
+                        case 'tie':
+                            gameState.winnerMssg = 'tie';
+                            gameState.state = 'gameOver';
+                            break;
+
+                        default: break;
+                    };
+                    renderGameState();
                 };
             }
 
@@ -89,10 +151,23 @@ function resetGameState() {
     gameState = {
         state: 'waiting',
         gameField: [" ", " ", " ", " ", "  ", " ", " ", " ", " "],
+        currentPlayer: 'X',
+        winnerMssg: ''
     }
+    renderGameState();
 }
 
+function renderGameOver() {
+    const gameOverMssg = document.createElement('h3');
+    gameOverMssg.textContent = gameState.winnerMssg;
+    rootElement.replaceChildren(gameOverMssg);
 
+    const resetBtn = document.createElement('button');
+    resetBtn.textContent = 'Play again'
+
+    resetBtn.addEventListener('click', resetGameState);
+    rootElement.appendChild(resetBtn);
+}
 
 
 renderGameState();

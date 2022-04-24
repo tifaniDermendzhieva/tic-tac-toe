@@ -5,12 +5,12 @@ let gameState = {
     gameField: [" - ", " ", " ", " ", "  ", " ", " ", " ", " - "],
 }
 
-function renderGameState(gameState) {
+function renderGameState() {
 
     switch (gameState.state) {
 
         case 'waiting': renderWaitingState(); break;
-        case 'playing': renderGameField(gameState.gameField); break;
+        case 'playing': renderGameField(); break;
         case 'gameOver': renderGameOver(); break;
 
     }
@@ -39,16 +39,34 @@ function renderGameField(gameField) {
 
 
     const tableElement = document.createElement('table');
+    tableElement.style.border = '2px solid black';
+    let dataCellIndex = 0;
     for (let i = 0; i < 3; i++) {
         const tableRow = document.createElement('tr');
 
         for (let j = 0; j < 3; j++) {
 
             const tableData = document.createElement('td');
+            tableData.style.border = '1px solid black';
 
             let currentField = gameFieldCopy.shift();
             tableData.textContent = currentField;
+
+            const onClick = (index) => {
+                return (e) => {
+
+                    let currentGameField = gameState.gameField;
+                    currentGameField[index] = 'X';
+
+                    gameState.gameField = currentGameField;
+                    renderGameField(gameState.gameField);
+                };
+            }
+
+            tableData.addEventListener('click', onClick(dataCellIndex));
             tableRow.appendChild(tableData);
+
+            dataCellIndex++;
         }
 
         tableElement.appendChild(tableRow)
@@ -59,4 +77,14 @@ function renderGameField(gameField) {
 
 }
 
-renderGameState(gameState);
+function resetGameState() {
+    gameState = {
+        state: 'waiting',
+        gameField: [" ", " ", " ", " ", "  ", " ", " ", " ", " "],
+    }
+}
+
+
+
+
+renderGameState();

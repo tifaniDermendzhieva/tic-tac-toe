@@ -3,6 +3,7 @@ const rootElement = document.getElementById('root');
 let gameState = {
     state: 'waiting',
     gameField: [" - ", " ", " ", " ", "  ", " ", " ", " ", " - "],
+    currentPlayer: 'X',
 }
 
 function renderGameState() {
@@ -33,13 +34,13 @@ function renderWaitingState() {
 
 }
 
-function renderGameField(gameField) {
+function renderGameField() {
 
-    let gameFieldCopy = gameField.slice();
-
+    let gameFieldCopy = gameState.gameField.slice();
 
     const tableElement = document.createElement('table');
     tableElement.style.border = '2px solid black';
+
     let dataCellIndex = 0;
     for (let i = 0; i < 3; i++) {
         const tableRow = document.createElement('tr');
@@ -56,9 +57,16 @@ function renderGameField(gameField) {
                 return (e) => {
 
                     let currentGameField = gameState.gameField;
-                    currentGameField[index] = 'X';
+                    currentGameField[index] = gameState.currentPlayer;
 
                     gameState.gameField = currentGameField;
+
+                    if (gameState.currentPlayer === 'X') {
+                        gameState.currentPlayer = 'O';
+                    } else {
+                        gameState.currentPlayer = 'X';
+                    }
+
                     renderGameField(gameState.gameField);
                 };
             }

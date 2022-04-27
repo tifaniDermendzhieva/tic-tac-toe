@@ -2,10 +2,14 @@
 import { tikTakToe } from "./game.js";
 const rootElement = document.getElementById('root');
 
+const emptyField = ' ';
+const playerOne = 'X';
+const playerTwo = 'O';
+
 let gameState = {
     state: 'waiting',
-    gameField: [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-    currentPlayer: 'X',
+    gameField: [emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField],
+    currentPlayer: playerOne,
     winnerMssg: ''
 }
 
@@ -63,20 +67,20 @@ function renderGameField() {
 
                     gameState.gameField = currentGameField;
 
-                    if (gameState.currentPlayer === 'X') {
-                        gameState.currentPlayer = 'O';
+                    if (gameState.currentPlayer === playerOne) {
+                        gameState.currentPlayer = playerTwo;
                     } else {
-                        gameState.currentPlayer = 'X';
+                        gameState.currentPlayer = playerOne;
                     }
 
                     switch (tikTakToe(gameState.gameField)) {
 
-                        case 'X':
-                            gameState.winnerMssg = 'X wins';
+                        case playerOne:
+                            gameState.winnerMssg = playerOne + ' wins';
                             gameState.state = 'gameOver';
                             break;
-                        case 'O':
-                            gameState.winnerMssg = 'O wins';
+                        case playerTwo:
+                            gameState.winnerMssg = playerTwo + ' wins';
                             gameState.state = 'gameOver';
                             break;
                         case 'tie':
@@ -92,7 +96,7 @@ function renderGameField() {
                 return handlerFunction;
             }
 
-            if (currentField === ' ') {
+            if (currentField === emptyField) {
                 tableData.addEventListener('click', onClick(dataCellIndex));
             }
             tableRow.appendChild(tableData);
@@ -111,8 +115,8 @@ function renderGameField() {
 function resetGameState() {
     gameState = {
         state: 'waiting',
-        gameField: [" ", " ", " ", " ", "  ", " ", " ", " ", " "],
-        currentPlayer: 'X',
+        gameField: [emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField],
+        currentPlayer: playerOne,
         winnerMssg: ''
     }
     renderGameState();

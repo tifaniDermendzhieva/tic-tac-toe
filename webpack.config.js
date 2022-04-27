@@ -14,7 +14,14 @@ const configuration = {
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
-
+    devtool: 'inline-source-map',
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'public'),
+        },
+        compress: false,
+        port: 9000,
+    },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Tik Tak Toe',

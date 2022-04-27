@@ -19,7 +19,7 @@ const configuration = {
         static: {
             directory: path.join(__dirname, 'public'),
         },
-        compress: false,
+        compress: true,
         port: 9000,
     },
     plugins: [

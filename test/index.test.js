@@ -1,5 +1,5 @@
-const tikTakToe = require("../index.js");
-const { expect } = require("chai");
+import { tikTakToe } from "../src/game.js";
+import { expect } from 'chai'
 
 describe("tiktaktoe tests", () => {
   describe("when X wins", () => {

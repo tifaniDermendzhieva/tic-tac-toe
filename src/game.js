@@ -10,7 +10,7 @@ const winningCombos = [
 ];
 
 const emptyField = " ";
-function tikTakToe(gameField) {
+export function tikTakToe(gameField) {
   if (gameField.length !== 9) {
     throw new Error("invalid game field");
   }
@@ -38,7 +38,5 @@ function tikTakToe(gameField) {
 
   return "pending";
 }
-
-module.exports = tikTakToe;
 
 

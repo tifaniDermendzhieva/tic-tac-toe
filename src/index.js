@@ -1,5 +1,5 @@
 
-import { tikTakToe } from "./game";
+import { tikTakToe } from "./game.js";
 const rootElement = document.getElementById('root');
 
 let gameState = {

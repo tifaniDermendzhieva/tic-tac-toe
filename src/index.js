@@ -17,6 +17,41 @@ let gameState = {
     winnerMssg: ''
 }
 
+function checkGameState(index, gameState) {
+    const newGameState = { ...gameState };
+
+    const currentGameField = newGameState.gameField;
+    currentGameField[index] = newGameState.currentPlayer;
+
+    newGameState.gameField = currentGameField;
+
+    if (newGameState.currentPlayer === playerOne) {
+        newGameState.currentPlayer = playerTwo;
+    } else {
+        newGameState.currentPlayer = playerOne;
+    }
+
+    switch (tikTakToe(newGameState.gameField)) {
+
+        case playerOne:
+            newGameState.winnerMssg = playerOne + ' wins';
+            newGameState.state = gameOverState;
+            break;
+        case playerTwo:
+            newGameState.winnerMssg = playerTwo + ' wins';
+            newGameState.state = gameOverState;
+            break;
+        case 'tie':
+            newGameState.winnerMssg = 'tie';
+            newGameState.state = gameOverState;
+            break;
+
+        default: break;
+    };
+
+    return newGameState;
+}
+
 function renderGameState() {
 
     switch (gameState.state) {
@@ -34,7 +69,7 @@ function renderWaitingState() {
     playBtn.textContent = 'PLAY';
 
     const onPlay = (e) => {
-        gameState.state = playingState;
+        gameState = { ...gameState, state: playingState };
         renderGameState(gameState);
         playBtn.removeEventListener('click', onPlay);
     }
@@ -66,34 +101,7 @@ function renderGameField() {
 
             const onClick = (index) => {
                 const handlerFunction = (e) => {
-                    let currentGameField = gameState.gameField;
-                    currentGameField[index] = gameState.currentPlayer;
-
-                    gameState.gameField = currentGameField;
-
-                    if (gameState.currentPlayer === playerOne) {
-                        gameState.currentPlayer = playerTwo;
-                    } else {
-                        gameState.currentPlayer = playerOne;
-                    }
-
-                    switch (tikTakToe(gameState.gameField)) {
-
-                        case playerOne:
-                            gameState.winnerMssg = playerOne + ' wins';
-                            gameState.state = gameOverState;
-                            break;
-                        case playerTwo:
-                            gameState.winnerMssg = playerTwo + ' wins';
-                            gameState.state = gameOverState;
-                            break;
-                        case 'tie':
-                            gameState.winnerMssg = 'tie';
-                            gameState.state = gameOverState;
-                            break;
-
-                        default: break;
-                    };
+                    gameState = checkGameState(index, gameState);
                     renderGameState();
                     e.currentTarget.removeEventListener('click', handlerFunction);
                 };

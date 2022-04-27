@@ -6,8 +6,12 @@ const emptyField = ' ';
 const playerOne = 'X';
 const playerTwo = 'O';
 
+const playingState = 'playing';
+const waitingState = 'waiting';
+const gameOverState = 'gameOver';
+
 let gameState = {
-    state: 'waiting',
+    state: waitingState,
     gameField: [emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField],
     currentPlayer: playerOne,
     winnerMssg: ''
@@ -17,9 +21,9 @@ function renderGameState() {
 
     switch (gameState.state) {
 
-        case 'waiting': renderWaitingState(); break;
-        case 'playing': renderGameField(); break;
-        case 'gameOver': renderGameOver(); break;
+        case waitingState: renderWaitingState(); break;
+        case playingState: renderGameField(); break;
+        case gameOverState: renderGameOver(); break;
 
     }
 
@@ -30,7 +34,7 @@ function renderWaitingState() {
     playBtn.textContent = 'PLAY';
 
     const onPlay = (e) => {
-        gameState.state = 'playing';
+        gameState.state = playingState;
         renderGameState(gameState);
         playBtn.removeEventListener('click', onPlay);
     }
@@ -77,15 +81,15 @@ function renderGameField() {
 
                         case playerOne:
                             gameState.winnerMssg = playerOne + ' wins';
-                            gameState.state = 'gameOver';
+                            gameState.state = gameOverState;
                             break;
                         case playerTwo:
                             gameState.winnerMssg = playerTwo + ' wins';
-                            gameState.state = 'gameOver';
+                            gameState.state = gameOverState;
                             break;
                         case 'tie':
                             gameState.winnerMssg = 'tie';
-                            gameState.state = 'gameOver';
+                            gameState.state = gameOverState;
                             break;
 
                         default: break;
@@ -114,7 +118,7 @@ function renderGameField() {
 
 function resetGameState() {
     gameState = {
-        state: 'waiting',
+        state: waitingState,
         gameField: [emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField],
         currentPlayer: playerOne,
         winnerMssg: ''

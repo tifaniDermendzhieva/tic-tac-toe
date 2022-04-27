@@ -1,4 +1,5 @@
 import { tikTakToe } from "../src/game.js";
+
 import { expect } from 'chai'
 
 describe("tiktaktoe tests", () => {

@@ -1,55 +1,12 @@
 
-import { tikTakToe } from "./game.js";
+import { checkGameState, emptyField, playerOne, playingState, waitingState, gameOverState } from "./game-state.js";
 const rootElement = document.getElementById('root');
-
-const emptyField = ' ';
-const playerOne = 'X';
-const playerTwo = 'O';
-
-const playingState = 'playing';
-const waitingState = 'waiting';
-const gameOverState = 'gameOver';
 
 let gameState = {
     state: waitingState,
     gameField: [emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField, emptyField],
     currentPlayer: playerOne,
     winnerMssg: ''
-}
-
-function checkGameState(index, gameState) {
-    const newGameState = { ...gameState };
-
-    const currentGameField = newGameState.gameField;
-    currentGameField[index] = newGameState.currentPlayer;
-
-    newGameState.gameField = currentGameField;
-
-    if (newGameState.currentPlayer === playerOne) {
-        newGameState.currentPlayer = playerTwo;
-    } else {
-        newGameState.currentPlayer = playerOne;
-    }
-
-    switch (tikTakToe(newGameState.gameField)) {
-
-        case playerOne:
-            newGameState.winnerMssg = playerOne + ' wins';
-            newGameState.state = gameOverState;
-            break;
-        case playerTwo:
-            newGameState.winnerMssg = playerTwo + ' wins';
-            newGameState.state = gameOverState;
-            break;
-        case 'tie':
-            newGameState.winnerMssg = 'tie';
-            newGameState.state = gameOverState;
-            break;
-
-        default: break;
-    };
-
-    return newGameState;
 }
 
 function renderGameState() {

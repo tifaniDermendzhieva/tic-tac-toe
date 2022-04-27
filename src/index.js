@@ -4,7 +4,7 @@ const rootElement = document.getElementById('root');
 
 let gameState = {
     state: 'waiting',
-    gameField: [" ", " ", " ", " ", "  ", " ", " ", " ", " "],
+    gameField: [" ", " ", " ", " ", " ", " ", " ", " ", " "],
     currentPlayer: 'X',
     winnerMssg: ''
 }
@@ -57,8 +57,7 @@ function renderGameField() {
             tableData.textContent = currentField;
 
             const onClick = (index) => {
-                return (e) => {
-
+                const handlerFunction = (e) => {
                     let currentGameField = gameState.gameField;
                     currentGameField[index] = gameState.currentPlayer;
 
@@ -88,10 +87,14 @@ function renderGameField() {
                         default: break;
                     };
                     renderGameState();
+                    e.currentTarget.removeEventListener('click', handlerFunction);
                 };
+                return handlerFunction;
             }
 
-            tableData.addEventListener('click', onClick(dataCellIndex));
+            if (currentField === ' ') {
+                tableData.addEventListener('click', onClick(dataCellIndex));
+            }
             tableRow.appendChild(tableData);
 
             dataCellIndex++;

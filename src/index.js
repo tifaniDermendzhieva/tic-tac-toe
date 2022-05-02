@@ -1,5 +1,7 @@
 
 import { checkGameState, emptyField, playerOne, playingState, waitingState, gameOverState } from "./game-state.js";
+import "./style.css";
+
 const rootElement = document.getElementById('root');
 
 let gameState = {
@@ -42,7 +44,7 @@ function renderGameField() {
     let gameFieldCopy = gameState.gameField.slice();
 
     const tableElement = document.createElement('table');
-    tableElement.style.border = '2px solid black';
+
 
     let dataCellIndex = 0;
     for (let i = 0; i < 3; i++) {
@@ -51,7 +53,7 @@ function renderGameField() {
         for (let j = 0; j < 3; j++) {
 
             const tableData = document.createElement('td');
-            tableData.style.border = '1px solid black';
+
 
             let currentField = gameFieldCopy.shift();
             tableData.textContent = currentField;
@@ -94,6 +96,7 @@ function resetGameState() {
 function renderGameOver() {
     const gameOverMssg = document.createElement('h3');
     gameOverMssg.textContent = gameState.winnerMssg;
+    gameOverMssg.classList.add('winner-message');
     rootElement.replaceChildren(gameOverMssg);
 
     const resetBtn = document.createElement('button');

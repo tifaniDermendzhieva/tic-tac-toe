@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+    font-family: Verdana, sans-serif;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+
+}
+
+body {
+    text-align: center;
+
+    font-size: larger;
+}
+
+table {
+    border: 1px solid cornflowerblue;
+    box-shadow: 0px 7px 29px 1px;
+}
+
+td {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    color: coral;
+    font-size: 40px;
+
+    border: 1px solid cornflowerblue;
+    cursor: pointer;
+}
+
+td:hover {
+    background-color: cornflowerblue;
+    transition: 600ms;
+}
+
+.title {
+    color: cornflowerblue;
+    font-size: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+}
+
+.winner-message {
+    color: coral;
+    font-size: 30px;
+    font-family: Georgia, serif;
+
+}
+
+button {
+
+    height: 50px;
+    width: 120px;
+    font-size: 20px;
+    color: cornflowerblue;
+    border: 2px solid cornflowerblue;
+    background-color: transparent;
+
+}
+
+button:hover {
+    border: 2px dotted cornflowerblue;
+
+    cursor: pointer;
+}

@@ -9,8 +9,6 @@ main {
 
     justify-content: center;
     align-items: center;
-
-
 }
 
 body {
@@ -21,7 +19,9 @@ body {
 
 table {
     border: 1px solid cornflowerblue;
-    box-shadow: 0px 7px 29px 1px;
+    border-radius: 10px;
+    background-color: cornflowerblue;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
 }
 
 td {
@@ -32,11 +32,14 @@ td {
     font-size: 40px;
 
     border: 1px solid cornflowerblue;
+    background-color: white;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 td:hover {
     background-color: cornflowerblue;
+    border-color: white;
     transition: 600ms;
 }
 
@@ -65,12 +68,13 @@ button {
     border: 2px solid cornflowerblue;
     border-radius: 10px;
     background-color: transparent;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
 
 }
 
 button:hover {
-    border: 2px dotted cornflowerblue;
+    border: 2px solid cornflowerblue;
     border-radius: 10px;
-
     cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 18px 50px -10px;
 }

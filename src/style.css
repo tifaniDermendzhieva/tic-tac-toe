@@ -49,6 +49,7 @@ td:hover {
 
 .winner-message {
     color: coral;
+    text-transform: capitalize;
     font-size: 30px;
     font-family: Georgia, serif;
 
@@ -60,13 +61,16 @@ button {
     width: 120px;
     font-size: 20px;
     color: cornflowerblue;
+
     border: 2px solid cornflowerblue;
+    border-radius: 10px;
     background-color: transparent;
 
 }
 
 button:hover {
     border: 2px dotted cornflowerblue;
+    border-radius: 10px;
 
     cursor: pointer;
 }

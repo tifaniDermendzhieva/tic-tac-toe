@@ -24,7 +24,7 @@ const configuration = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Tik Tak Toe',
+            title: 'Tic Tac Toe',
             template: 'public/index.html',
         }),
     ],

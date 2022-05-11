@@ -1,6 +1,6 @@
 
-import { tikTakToe } from './game.js';
-export const emptyField = ' ';
+import { ticTacToe, noOneWins, continuePlaying } from './game.js';
+
 export const playerOne = 'X';
 export const playerTwo = 'O';
 
@@ -9,6 +9,7 @@ export const waitingState = 'waiting';
 export const gameOverState = 'gameOver';
 
 export function checkGameState(index, gameState) {
+
     const newGameState = { ...gameState };
 
     const currentGameField = newGameState.gameField;
@@ -22,7 +23,7 @@ export function checkGameState(index, gameState) {
         newGameState.currentPlayer = playerOne;
     }
 
-    switch (tikTakToe(newGameState.gameField)) {
+    switch (ticTacToe(newGameState.gameField)) {
 
         case playerOne:
             newGameState.winnerMssg = playerOne + ' wins';
@@ -32,12 +33,17 @@ export function checkGameState(index, gameState) {
             newGameState.winnerMssg = playerTwo + ' wins';
             newGameState.state = gameOverState;
             break;
-        case 'tie':
-            newGameState.winnerMssg = 'tie';
+        case noOneWins:
+            newGameState.winnerMssg = 'TIE';
             newGameState.state = gameOverState;
             break;
 
-        default: break;
+        case continuePlaying:
+            break;
+
+        default:
+            newGameState.state = gameOverState;
+            break;
     };
 
     return newGameState;

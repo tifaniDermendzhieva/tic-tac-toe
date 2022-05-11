@@ -9,12 +9,14 @@ const winningCombos = [
   [2, 4, 6],
 ];
 
-const emptyField = " ";
-export function tikTakToe(gameField) {
-  if (gameField.length !== 9) {
-    throw new Error("invalid game field");
-  }
+export const emptyField = ' ';
+export const noOneWins = 'tie';
+export const continuePlaying = 'pending';
 
+export function ticTacToe(gameField) {
+  if (gameField.length !== 9) {
+    throw new Error('Invalid game field');
+  }
 
   for (let i = 0; i < winningCombos.length; i++) {
     let currentCombo = winningCombos[i];
@@ -33,10 +35,10 @@ export function tikTakToe(gameField) {
   }
 
   if (!gameField.includes(emptyField)) {
-    return "tie";
+    return noOneWins;
   }
 
-  return "pending";
+  return continuePlaying;
 }
 
 

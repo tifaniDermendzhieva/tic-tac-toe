@@ -1,5 +1,6 @@
 
-import { checkGameState, emptyField, playerOne, playingState, waitingState, gameOverState } from "./game-state.js";
+import { checkGameState, playerOne, playingState, waitingState, gameOverState } from "./game-state.js";
+import { emptyField } from "./game.js";
 import "./style.css";
 
 const rootElement = document.getElementById('root');
@@ -29,7 +30,7 @@ function renderWaitingState() {
 
     const onPlay = (e) => {
         gameState = { ...gameState, state: playingState };
-        renderGameState(gameState);
+        renderGameState();
         playBtn.removeEventListener('click', onPlay);
     }
 
@@ -42,25 +43,30 @@ function renderWaitingState() {
 function renderGameField() {
 
     let gameFieldCopy = gameState.gameField.slice();
-
     const tableElement = document.createElement('table');
-
-
     let dataCellIndex = 0;
-    for (let i = 0; i < 3; i++) {
-        const tableRow = document.createElement('tr');
 
+    for (let i = 0; i < 3; i++) {
+
+        const tableRow = document.createElement('tr');
         for (let j = 0; j < 3; j++) {
 
             const tableData = document.createElement('td');
-
 
             let currentField = gameFieldCopy.shift();
             tableData.textContent = currentField;
 
             const onClick = (index) => {
                 const handlerFunction = (e) => {
-                    gameState = checkGameState(index, gameState);
+
+                    // console.log('handler state: ' + gameState.state)
+                    if (gameState.state !== playingState) {
+                        return;
+                    }
+
+                    tableData.textContent = gameState.currentPlayer; // required to plcace the final winning symbol on the game field //
+                    gameState = { ...checkGameState(index, gameState) };
+
                     renderGameState();
                     e.currentTarget.removeEventListener('click', handlerFunction);
                 };
@@ -75,8 +81,7 @@ function renderGameField() {
             dataCellIndex++;
         }
 
-        tableElement.appendChild(tableRow)
-
+        tableElement.appendChild(tableRow);
     }
 
     rootElement.replaceChildren(tableElement);
@@ -93,11 +98,13 @@ function resetGameState() {
     renderGameState();
 }
 
+
 function renderGameOver() {
     const gameOverMssg = document.createElement('h3');
     gameOverMssg.textContent = gameState.winnerMssg;
     gameOverMssg.classList.add('winner-message');
-    rootElement.replaceChildren(gameOverMssg);
+    // rootElement.replaceChildren(gameOverMssg);
+    rootElement.appendChild(gameOverMssg);
 
     const resetBtn = document.createElement('button');
     resetBtn.textContent = 'Play again'
@@ -105,6 +112,5 @@ function renderGameOver() {
     resetBtn.addEventListener('click', resetGameState);
     rootElement.appendChild(resetBtn);
 }
-
 
 renderGameState();
